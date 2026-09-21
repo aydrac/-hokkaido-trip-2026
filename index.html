@@ -92,8 +92,11 @@ const D=[
 ];
 
 const tabs=document.querySelector("#tabs"),box=document.querySelector("#daybox");
+const photos={
+  "支笏湖":"images/Shikotsuko-lake.jpg"
+};
 D.forEach((d,i)=>{let b=document.createElement("button");b.textContent=d[0];if(i===0)b.className="active";b.onclick=()=>{document.querySelectorAll(".daytabs button").forEach(x=>x.classList.remove("active"));b.classList.add("active");document.querySelectorAll(".day").forEach(x=>x.classList.remove("active"));document.querySelector("#d"+i).classList.add("active")};tabs.appendChild(b);
-let s=document.createElement("div");s.id="d"+i;s.className="day "+(i===0?"active":"");s.innerHTML='<div class="card"><h2>'+d[0]+'｜'+d[1]+'</h2><div class="timeline">'+d[2].map(x=>'<div class="item"><div class="time">'+x[0]+'</div><span class="dot"></span><div class="content"><b>'+x[1]+'</b><div class="meta">'+x[2]+'</div></div></div>').join("")+'</div></div>';box.appendChild(s);});
+let s=document.createElement("div");s.id="d"+i;s.className="day "+(i===0?"active":"");s.innerHTML='<div class="card"><h2>'+d[0]+'｜'+d[1]+'</h2><div class="timeline">'+d[2].map(x=>{let p=Object.keys(photos).find(k=>x[1].includes(k));return '<div class="item"><div class="time">'+x[0]+'</div><span class="dot"></span><div class="content">'+(p?'<img src="'+photos[p]+'" alt="'+p+'" style="width:100%;height:150px;object-fit:cover;border-radius:10px;margin-bottom:8px;">':'')+'<b>'+x[1]+'</b><div class="meta">'+x[2]+'</div></div></div>'}).join("")+'</div></div>';box.appendChild(s);
 
 const items=["護照＋機票／登機資訊","日幣現金＋信用卡","手機＋充電器＋行動電源","eSIM／SIM","防風保暖外套","發熱衣／保暖中層","帽子、手套、暖暖包","好走防滑鞋","雨傘／輕便雨衣","駕照＋日文譯本／租車文件","住宿訂單","常用藥品","水壺","小型折疊傘","行李秤"];
 document.querySelector("#list").innerHTML=items.map((x,i)=>'<div class="check"><label><input type="checkbox" data-i="'+i+'">'+x+'</label></div>').join("");
